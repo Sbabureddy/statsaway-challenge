@@ -1,14 +1,17 @@
 import React, { Component } from "react";
-import SearchBar from "./SearchBar";
+
 
 export class RestaruntList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      restaurants: []
+      restaurants: [],
+      input: ""
     };
   }
+
+  handleChange = e => this.setState({input: e.target.value});
 
   componentDidMount() {
     fetch(
@@ -19,10 +22,32 @@ export class RestaruntList extends Component {
   }
 
   render() {
-    const { restaurants } = this.state;
+    let { restaurants, input } = this.state;
+    if(input && restaurants.length > 0){
+        restaurants = restaurants.filter(restaurant => restaurant.Country.includes(input));
+    }
+
     return (
       <div className="container">
-        <SearchBar restaurants={restaurants} />
+      <form>
+        <div className="form-group">
+          <label htmlFor="restaurant">
+            Search for your Favourite Restaurant by Country wise.
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="restaurant"
+            aria-describedby="restaurantHelp"
+            value={input}
+            onChange={this.handleChange}
+          />
+          <small id="restaurantHelp" className="form-text text-muted">
+            Restaurant list will appear here.
+          </small>
+        </div>
+
+      </form>
         <div className="row">
           {restaurants.map((place, idx) => (
             <div key={idx} className="col-sm-12 col-md-4 mb-1">
