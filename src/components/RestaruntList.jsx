@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+
 export class RestaruntList extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +11,7 @@ export class RestaruntList extends Component {
     };
   }
 
-  handleChange = e => this.setState({ input: e.target.value });
+  handleChange = e => this.setState({input: e.target.value});
 
   componentDidMount() {
     fetch(
@@ -22,35 +23,34 @@ export class RestaruntList extends Component {
 
   render() {
     let { restaurants, input } = this.state;
-    if (input && restaurants.length > 0) {
-      restaurants = restaurants.filter(restaurant =>
-        restaurant.Country.includes(input)
-      );
+    if(input && restaurants.length > 0){
+        restaurants = restaurants.filter(restaurant => restaurant.Country.includes(input));
     }
 
     return (
       <div className="container">
-        <form>
-          <div className="form-group">
-            <label htmlFor="restaurant">
-              Search for your Favourite Restaurant by Country wise.
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="restaurant"
-              aria-describedby="restaurantHelp"
-              value={input}
-              onChange={this.handleChange}
-            />
-            <small id="restaurantHelp" className="form-text text-muted">
-              Restaurant list will appear here.
-            </small>
-          </div>
-        </form>
+      <form>
+        <div className="form-group">
+          <label htmlFor="restaurant">
+            Search for your Favourite Restaurant by Country wise.
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="restaurant"
+            aria-describedby="restaurantHelp"
+            value={input}
+            onChange={this.handleChange}
+          />
+          <small id="restaurantHelp" className="form-text text-muted">
+            Restaurant list will appear here.
+          </small>
+        </div>
+
+      </form>
         <div className="row">
           {restaurants.map((place, idx) => (
-            <div key={idx} className="col-sm-12 col-md-6 col-lg-4 mb-1">
+            <div key={idx} className="col-sm-12 col-md-4 mb-1">
               <div className="card mt-3">
                 <div className="card-body">
                   <h2>Brand: {place.Brand}</h2>
